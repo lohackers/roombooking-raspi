@@ -11,7 +11,8 @@ config = ConfigParser.ConfigParser()
 config.read('config.ini')
 
 # Get configuration
-api_endpoint = config.get('DEFAULT', 'api_endpoint')
+upcoming = config.get('DEFAULT', 'upcoming')
+onair = config.get('DEFAULT', 'onair')
 polling = int(config.get('DEFAULT', 'polling'))
 
 # Main routine
@@ -20,8 +21,18 @@ def main():
 	opener.addheaders = [('Accept', 'application/json')]
 
 	while True:
-		bookings = loads(opener.open(api_endpoint).read())
-		print bookings[0]['from']
+		upcoming_booking = len(loads(opener.open(upcoming).read()))
+		onair_booking = len(loads(opener.open(onair).read()))
+
+		if onair_booking:
+			# There is a live event, turn on RED light
+			print 'ON AIR NOW!'
+		elif upcoming_booking:
+			# There is a booking soon, turn on ORANGE light
+			print 'EVENT IS COMING SOON'
+		else:
+			# No events, turn off ALL lights
+			print 'NO EVENTS!'
 
 		sleep(polling)
 
