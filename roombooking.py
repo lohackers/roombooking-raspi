@@ -15,6 +15,9 @@ upcoming = config.get('DEFAULT', 'upcoming')
 onair = config.get('DEFAULT', 'onair')
 polling = int(config.get('DEFAULT', 'polling'))
 
+os.system("gpio mode 0 out")
+os.system("gpio mode 1 out")
+
 # Main routine
 def main():
 	opener = urllib2.build_opener()
@@ -25,13 +28,16 @@ def main():
 		onair_booking = len(loads(opener.open(onair).read()))
 
 		if onair_booking:
-			# There is a live event, turn on RED light
+			os.system("gpio write 0 1")
+			os.system("gpio write 1 0")
 			print 'ON AIR NOW!'
 		elif upcoming_booking:
-			# There is a booking soon, turn on ORANGE light
+			os.system("gpio write 0 0")
+			os.system("gpio write 1 1")
 			print 'EVENT IS COMING SOON'
 		else:
-			# No events, turn off ALL lights
+			os.system("gpio write 0 0")
+			os.system("gpio write 1 0")
 			print 'NO EVENTS!'
 
 		sleep(polling)
