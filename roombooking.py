@@ -31,16 +31,16 @@ def main():
 		onair_booking = len(loads(opener.open(onair).read()))
 
 		if onair_booking:
-			os.system("gpio write 0 1")
-			os.system("gpio write 1 0")
+			os.system("gpio write 1 1")
+			os.system("gpio write 7 0")
 			print 'ON AIR NOW!'
 		elif upcoming_booking:
-			os.system("gpio write 0 0")
-			os.system("gpio write 1 1")
+			os.system("gpio write 1 0")
+			os.system("gpio write 7 1")
 			print 'EVENT IS COMING SOON'
 		else:
-			os.system("gpio write 0 0")
 			os.system("gpio write 1 0")
+			os.system("gpio write 7 0")
 			print 'NO EVENTS!'
 
 		sleep(polling)
