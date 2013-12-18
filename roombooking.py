@@ -7,7 +7,7 @@ from time import sleep
 from json import loads
 import os
 
-lcd = lcd = Adafruit_CharLCD()
+lcd = Adafruit_CharLCD()
 
 # Set configuration
 config = ConfigParser.ConfigParser()
