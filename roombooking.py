@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
+from charlcd import Adafruit_CharLCD
 import ConfigParser
 import urllib2
 from time import sleep
 from json import loads
 import os
+
+lcd = lcd = Adafruit_CharLCD()
 
 # Set configuration
 config = ConfigParser.ConfigParser()
